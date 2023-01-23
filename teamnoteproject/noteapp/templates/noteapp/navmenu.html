@@ -1,0 +1,7 @@
+{% for m in nav_menu %}
+<div class="nav">
+    {% url m.url_name as menu_path %}
+    <a class="nav {% if current_path == menu_path %}active{% endif %}"
+       href="{{ menu_path }}">{{ m.title }}</a>
+</div>
+{% endfor %}

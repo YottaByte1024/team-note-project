@@ -1,0 +1,70 @@
+<{% load static %}
+{% load noteapp_navmenu %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link type="text/css" rel="stylesheet" href="{% static 'noteapp/css/base.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'noteapp/css/links.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'noteapp/css/markdown.css' %}"/>
+    <link type="text/css" rel="stylesheet" href="{% static 'noteapp/css/form.css' %}"/>
+</head>
+
+<body>
+<div class="container page">
+    <div class="container navbar">
+        <div class="nav"></div>
+
+        {% show_navmenu request.path %}
+        <div class="nav empty-field"></div>
+
+        <div class="nav"></div>
+
+    </div>
+    {% block header %}
+    {% endblock header %}
+    <main class="container section">
+        {% block content %}
+        {% endblock content %}
+
+        {% if page_obj.has_other_pages%}
+        <div class="paginator">
+
+                {% if page_obj.has_previous %}
+                <span class="paginator-num">
+                    <a href="?page={{ 1 }}">&lt;&lt;</a>
+                </span>
+                {% endif %}
+
+
+                {% for p in paginator.page_range %}
+                {% if page_obj.number == p %}
+                <span class="paginator-num paginator-num-selected">{{ p }}</span>
+                {% elif p >= page_obj.number|add:-1 and p <= page_obj.number|add:1 %}
+                <span class="paginator-num">
+                    <a href="?page={{ p }}">{{ p }}</a>
+                </span>
+                {% endif %}
+                {% endfor %}
+
+
+                {% if page_obj.has_next %}
+                <span class="paginator-num">
+                    <a href="?page={{ page_obj.paginator.num_pages }}">&gt;&gt;</a>
+                </span>
+                {% endif %}
+
+        </div>
+        {% endif %}
+    </main>
+    <footer class="container footer">
+        Developed by 1024_YottaByte - 2022
+    </footer>
+</div>
+</body>
+
+</html>

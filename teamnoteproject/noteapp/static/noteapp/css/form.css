@@ -1,0 +1,116 @@
+h1.register{
+    margin-left: 40px;
+}
+
+form {
+    margin-bottom: 20px;
+
+}
+
+form > p{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+    margin-left: 40px;
+    margin-right: 40px;
+    
+}
+
+.form-label{
+    width: 200px;
+    margin-bottom: 5px;
+}
+
+div.form-error > ul.errorlist{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: flex-start;
+}
+
+ul.errorlist > li{
+    display: inline;
+    margin: 5px;
+}
+
+form > p > input, .form-textarea{
+    border-style: solid;
+    border: 0px;
+    border-radius: 10px;
+    height: 20px;
+    padding: 4px;
+    color: white;
+    background-color: var(--pageBG);
+    width: 200px;
+}
+
+form > p > input:focus{
+    border: 0px solid rgb(0, 0, 0);
+    
+}
+form > p > input:focus-visible,
+.form-textarea:focus-visible{
+    border: 0px solid rgb(0, 0, 0);
+    outline-width: 1px;
+    outline-style: solid;
+    outline-color: rgb(105, 105, 105);
+}
+
+
+form > button,
+.button{
+    padding: 4px 10px;
+    border-radius: 15px;
+    color: var(--colColor);
+    height: 30px;
+    margin-left: 40px;
+    transition: transform 0.3s;
+    border: 0px solid var(--colColor);
+        background-color: var(--pageBG);
+}
+
+form > button:active,
+.button:active{
+    background-color: rgb(158, 158, 158);
+}
+
+form > button:hover,
+.button:hover{
+    transform: scale(110%);
+}
+
+.button{
+    display: inline-block;
+    margin: 10px 10px;
+    text-decoration:none;
+    line-height: 30px;
+}
+
+.form-textarea{
+    
+    height: 100px;
+    
+}
+
+.form-checkbox{
+    width: max-content;
+}
+
+
+@media (prefers-color-scheme: dark) {
+    form > p > input , .form-textarea{
+        color-scheme: dark;
+    }
+    form > button,
+    .button{
+        background-color: var(--navbarLinkHover);
+        border: 0px solid white;
+        color: var(--colColor);
+    }
+
+    form > button:active
+    .button:active{
+        background-color: var(--navbarLinkActive);
+    }
+}

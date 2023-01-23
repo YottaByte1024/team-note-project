@@ -1,0 +1,274 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    /* margin-top: 48px; */
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 0px;
+    /* padding-top: 48px; */
+    
+}
+
+
+
+:root {
+    --whiteBG: rgb(255, 255, 255);
+    --grad1: #ffffff;
+    --grad2: #cacaca;
+    --border: 1px solid rgb(161, 161, 161);
+    --textLogoColor: rgb(0, 167, 50);
+    --boxShadow: 0px 0px 0px 0px #757575;
+    --pageBG: rgb(226, 226, 226);
+
+    --colBG: rgb(255, 255, 255);
+    --colBGHover: rgb(247, 247, 247);
+    --colColor: rgb(88, 88, 88);
+
+    --headerColor: rgb(88, 88, 88);
+    --navbarBG: white;
+    --navbarBorder: 1px solid rgb(222, 222, 222);
+    --navbarLinkActive: rgb(226, 226, 226);
+    --navbarLinkHover: rgb(226, 226, 226);
+    --navbarLink: rgb(241, 241, 241);
+    --navbarLinkColor:rgb(78, 78, 78);
+
+    --tableBorderColor: rgb(122, 122, 122);
+    --theadBGColor: rgb(224, 224, 224);
+    --hrColor: rgb(66, 65, 77);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root{
+      --whiteBG: rgb(255, 255, 255);
+      --grad1: rgb(66, 65, 77);
+      --grad2: rgb(43, 42, 51);
+      --borderColor: rgb(0, 0, 0);
+      --textLogoColor: rgb(0, 167, 50);
+      --boxShadow: 0px 0px 0px 0px #000000;
+      --pageBG: rgb(35, 34, 43);
+
+      --colBG: rgb(43, 42, 51);
+      --colBGHover: rgb(40, 39, 48);
+      --colColor: rgb(204, 204, 204);
+
+      --headerColor: rgb(204, 204, 204);
+      --navbarBG: rgb(28, 27, 34);
+      --navbarBorder: 0px solid #000000;
+      --navbarLinkActive: rgb(53, 52, 58);
+      --navbarLinkHover: rgb(66, 65, 77);
+      --navbarLink: rgba(255, 255, 255, 0);
+      --navbarLinkColor:rgb(161, 161, 168);
+
+      --tableBorderColor: rgb(122, 122, 122);
+      --theadBGColor: rgb(58, 57, 70);
+      --hrColor: rgb(66, 65, 77);
+    }
+}
+
+hr {
+    border-style: solid;
+    border-radius: 2px;
+    border-color: var(--hrColor);
+    height: 0px;
+    
+}
+
+.container {
+    display:flex;
+}
+
+.container.page {
+    flex-direction: column;
+    background-color: var(--pageBG);
+    align-items: center;
+    
+    padding: 0px;
+    padding-top: 48px;
+    min-height: 100%;
+    
+}
+.container.header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 90%;
+    /* margin: 0 40px; */
+    padding: 50px 0px 50px 0px;
+    /*background-color: rgb(236, 236, 236);*/
+    background-image: linear-gradient(130deg, var(--grad1), var(--grad2));
+    box-shadow: var(--boxShadow);
+    border-radius: 20px;
+    border:   var(--borderColor);
+}
+
+.container.header > .logo{
+    margin: 50px 0px 50px 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.container.header > .logo > img{
+    height: 100px;
+} 
+
+.container.header > .logo > span {
+    font-size: 32pt;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color:var(--textLogoColor);
+}
+
+.container.header > .main-about{
+    padding: 0 150px 0 150px;
+    color: var(--headerColor);
+    /* text-shadow: 1px 1px 8px #575757; */
+}
+
+.container.section{
+    padding: 0px 0px 0px 0px;
+    flex-direction: column;
+    flex-grow: 1;
+    
+}
+
+.container.footer{
+    padding: 10px 10px 10px 10px;
+    box-shadow: var(--boxShadow);
+    border-radius: 20px;
+    border:  var(--borderColor);
+    background-color: var(--colBG);
+    color:var(--colColor);
+    /*width: 640px;*/
+    
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.row > .col {
+    
+    box-shadow: var(--boxShadow);
+    margin: 10px;
+    border-radius: 20px;
+    padding: 0px 20px 0px 20px;
+    width: 300px;
+    background-color: var(--colBG);
+    border:  var(--borderColor);
+    color: var(--colColor);
+}
+
+.row > .col.article {
+    width: 100%;
+    display: block;
+    max-width: 800px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+a.col.article:link{
+    text-decoration: none;
+}
+
+a.col.article:hover{
+    text-decoration: none;
+    background-color: var(--colBGHover);
+    transform: scale(101%);
+}
+
+
+header, main, footer{
+    flex-shrink: 0;
+    margin: 20px;
+}
+
+div.container.navbar {
+    align-self: stretch;
+    background-color: var(--navbarBG);
+    border-bottom: var(--navbarBorder);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999;
+}
+div.nav {
+    min-width: 5vw;
+}
+
+a.nav {
+    display: block;
+    padding:15px;
+    margin:0;
+    background-color: var(--navbarLink);
+    text-decoration: none;
+    color: var(--navbarLinkColor);
+    transition: background-color 0.3s;
+    text-align: center;
+  }
+
+  a.nav:hover {
+    background-color: var(--navbarLinkHover);
+  }
+  a.nav.active{
+      background-color: var(--navbarLinkActive);
+  }
+
+div.paginator{
+    /* background-color: aqua; */
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-content: flex-end;
+    align-items: flex-start;
+}
+
+span.paginator-num{
+    /* background-color: var(--colBG); */
+    height: 40px;
+    line-height: 40px;
+    width: 40px;
+    text-align: center;
+    color: var(--colColor);
+    margin: 4px;
+    border-radius: 20px;
+    
+}
+
+span.paginator-num > a{
+    background-color: var(--colBG);
+    display: block;
+    height: 100%;
+    text-decoration: none;
+    color: var(--colColor);
+    border-radius: 20px;
+    transition: background-color 0.3s;
+    
+}
+
+span.paginator-num > a:hover{
+    background-color: var(--colBGHover);
+}
+
+.nav.empty-field{
+    flex-grow: 1;
+}
+
+@media (max-width: 800px) {
+    .container.header > .main-about{
+        padding: 0 20px 0 20px;
+    }
+    .row > .col {
+        max-width: 100%;
+        width: 100%;
+    }
+    .container.header > .logo > span {
+        font-size: 20pt; 
+    }
+    .container.header > .logo{
+        flex-direction: column;
+    }
+    
+  }
+
+  

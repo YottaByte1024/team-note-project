@@ -1,0 +1,28 @@
+  a.tg-link{
+    display: inline-block;
+    background-color: rgb(43, 162, 223);
+    padding:3px;
+    border-radius: 5px;
+    margin:0;
+  }
+  a.tg-link:link {
+    text-decoration: none;
+    color:#E8F3FA;
+  }
+  
+  a.tg-link:visited {
+    text-decoration: none;
+    color:#E8F3FA;
+  }
+  
+  a.tg-link:hover {
+    text-decoration: none;
+    background-color: rgb(12, 130, 188);
+  }
+  
+  a.tg-link:active {
+    text-decoration: none;
+    background-color: rgb(15, 133, 192);
+  }
+
+  
