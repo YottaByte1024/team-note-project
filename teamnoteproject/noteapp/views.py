@@ -7,7 +7,7 @@ from .models import Note
 
 class NoteView(DetailView):
     model = Note
-    queryset = Note.objects.filter(archived=False).order_by('-id')
+    queryset = Note.objects.filter().order_by('-id')
     template_name = 'noteapp/note.html'
     context_object_name = 'note'
     # pk_url_kwarg = 'note_id'

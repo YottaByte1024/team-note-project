@@ -9,21 +9,18 @@
 
 
 
-{% if note.archived == False %}
+
     <div class="col article">
         <h1>{{ note.name }}</h1>
+        {% if note.archived == True %}
+        <p>Archived</p>
+        {% endif %}
         <p>Date: </p>
     </div>
 
     <div class="col article">
         <p>{{ note.text }}</p>
     </div>
-{% else %}
-    <div class="col article">
-        <h1>Note not available for viewing</h1>
-        <hr>
-        <p>The note is either not published or does not exist!</p>
-        </div>
-{% endif %}
+
 </div>
 {% endblock content %}
