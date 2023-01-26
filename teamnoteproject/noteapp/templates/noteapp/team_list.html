@@ -1,0 +1,32 @@
+{% extends "noteapp/base.html" %}
+{% load static %}
+
+{% block title %}Teams - {{request.user.username}}{% endblock %}
+
+{% block content %}
+<div class="row">
+    {% if request.user.is_authenticated %}
+    <div class="col article">
+        <a class="button" href="{% url 'note-list-view' %}">Add note</a>
+    </div>
+    {% endif %}
+    {% for team in teams %}
+    <a href="{{ team.get_absolute_url }}" class="col">
+
+        <h1>{{ team.name }}</h1>
+        <hr>
+        <p>Date: </p>
+    </a>
+    {% endfor %}
+
+    {% if not teams %}
+    <div class="col article">
+        <h3>It's empty here for now</h3>
+        <hr>
+
+        <p>No article has been published or does not exist!</p>
+        <p>Please visit this site later.</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock content %}

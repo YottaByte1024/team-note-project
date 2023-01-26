@@ -142,6 +142,14 @@ hr {
     
 }
 
+div.toolbox {
+    border-radius: 20px;
+    box-shadow: var(--boxShadow);
+    background-color: var(--colBG);
+    border:  var(--borderColor);
+    color: var(--colColor);
+}
+
 .row {
     display: flex;
     flex-direction: row;
@@ -163,7 +171,7 @@ hr {
 .row > .col.article {
     width: 100%;
     display: block;
-    max-width: 800px;
+    /*max-width: 800px;*/
     transition: background-color 0.3s, transform 0.3s;
 }
 
@@ -250,7 +258,7 @@ span.paginator-num > a:hover{
     background-color: var(--colBGHover);
 }
 
-.nav.empty-field{
+.empty-field{
     flex-grow: 1;
 }
 

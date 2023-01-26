@@ -5,9 +5,14 @@
 {% block title %}Notes - {{ note.name }}{% endblock %}
 
 {% block content %}
+{% if request.user.is_authenticated %}
+<div class="container toolbox">
+    <a class="button" href="{% url 'teamnotes-list-view'  %}">Team</a>
+    <div class="empty-field"></div>
+    <a class="button" href="{% url 'note-list-view' %}">Change</a>
+</div>
+{% endif %}
 <div class="row">
-
-
 
 
     <div class="col article">

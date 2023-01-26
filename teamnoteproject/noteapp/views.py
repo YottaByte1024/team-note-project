@@ -20,6 +20,7 @@ class NoteDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         return context
 
+
 class TeamNotesListView(ListView):
     model = Note
     # queryset = Team.objects.filter().order_by('-id')
@@ -34,6 +35,7 @@ class TeamNotesListView(ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
 
 def notes_plug(request):
     return HttpResponse("Notes")

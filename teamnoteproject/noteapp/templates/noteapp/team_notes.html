@@ -4,12 +4,17 @@
 {% block title %}Team - {{notes.first.team.name}}{% endblock %}
 
 {% block content %}
+
+{% if request.user.is_authenticated %}
+<div class="container toolbox">
+    <a class="button" href="{% url 'note-list-view' %}">Teams</a>
+    <div class="empty-field"></div>
+    <a class="button" href="{% url 'note-list-view' %}">Add note</a>
+</div>
+{% endif %}
+
 <div class="row">
-    {% if request.user.is_authenticated and request.user.is_staff %}
-    <div class="col article">
-        <a class="button" href="{% url 'note-list-view' %}">Add note</a>
-    </div>
-    {% endif %}
+
     {% for note in notes %}
     <a href="{{ note.get_absolute_url }}" class="col">
 
