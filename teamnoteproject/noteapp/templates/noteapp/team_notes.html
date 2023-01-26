@@ -1,7 +1,7 @@
 {% extends "noteapp/base.html" %}
 {% load static %}
 
-{% block title %}Team - {{notes.first.team.name}}{% endblock %}
+{% block title %}Team - {{team.name}}{% endblock %}
 
 {% block content %}
 
@@ -15,7 +15,7 @@
 
 <div class="row">
 
-    {% for note in notes %}
+    {% for note in team.notes.all %}
     <a href="{{ note.get_absolute_url }}" class="col">
 
         <h1>{{ note.name }}</h1>
@@ -24,7 +24,7 @@
     </a>
     {% endfor %}
 
-    {% if not notes %}
+    {% if not team.notes.all %}
     <div class="col article">
         <h3>It's empty here for now</h3>
         <hr>

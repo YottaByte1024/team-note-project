@@ -11,7 +11,7 @@ class Note(models.Model):
     # path = models.CharField(max_length=256, default="/")
     text = models.TextField(default="")
     archived = models.BooleanField(default=False)
-    team = models.ForeignKey('Team', on_delete=models.CASCADE)
+    team = models.ForeignKey('Team', related_name='notes', on_delete=models.CASCADE)
     date_create = models.DateTimeField(auto_now_add=True)
     date_change = models.DateTimeField(auto_now=True)
 
