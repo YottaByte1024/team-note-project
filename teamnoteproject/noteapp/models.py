@@ -35,4 +35,4 @@ class Team(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('team-detail-view', args=[str(self.id)])
+        return reverse('teamnotes-detail-view', args=[str(self.id)])

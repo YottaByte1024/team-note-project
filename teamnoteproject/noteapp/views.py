@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
@@ -32,6 +33,20 @@ class TeamNotesListView(ListView):
     def get_queryset(self):
         team_url = self.kwargs['team_id']
         return Note.objects.filter(team_id=team_url).order_by('-id')
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class UserTeamsDetailView(DetailView):
+    model = User
+    template_name = 'noteapp/team_list.html'
+    context_object_name = 'user'
+    # pk_url_kwarg = 'note_id'
+
+    def get_queryset(self):
+        return User.objects.filter(id=self.request.user.id)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)

@@ -20,7 +20,8 @@
         {% if note.archived == True %}
         <p>Archived</p>
         {% endif %}
-        <p>Date: </p>
+        <p>Date of creation: {{note.date_create}}</p>
+        <p>Date of change: {{note.date_change}}</p>
     </div>
 
     <div class="col article">

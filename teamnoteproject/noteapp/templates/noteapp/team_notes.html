@@ -7,7 +7,7 @@
 
 {% if request.user.is_authenticated %}
 <div class="container toolbox">
-    <a class="button" href="{% url 'note-list-view' %}">Teams</a>
+    <a class="button" href="{% url 'userteams-detail-view' request.user.id %}">Teams</a>
     <div class="empty-field"></div>
     <a class="button" href="{% url 'note-list-view' %}">Add note</a>
 </div>
@@ -20,7 +20,7 @@
 
         <h1>{{ note.name }}</h1>
         <hr>
-        <p>Date: </p>
+        <p>Date: {{ note.date_create}}</p>
     </a>
     {% endfor %}
 

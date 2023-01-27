@@ -4,22 +4,23 @@
 {% block title %}Teams - {{request.user.username}}{% endblock %}
 
 {% block content %}
-<div class="row">
-    {% if request.user.is_authenticated %}
-    <div class="col article">
-        <a class="button" href="{% url 'note-list-view' %}">Add note</a>
+{% if request.user.is_authenticated %}
+    <div class="container toolbox">
+        <a class="button" href="{% url 'note-list-view' %}">Create team</a>
     </div>
     {% endif %}
-    {% for team in teams %}
+<div class="row">
+
+    {% for team in user.teams.all %}
     <a href="{{ team.get_absolute_url }}" class="col">
 
         <h1>{{ team.name }}</h1>
         <hr>
-        <p>Date: </p>
+        <p>Notes count: {{team.notes.count}}</p>
     </a>
     {% endfor %}
 
-    {% if not teams %}
+    {% if not user.teams.all %}
     <div class="col article">
         <h3>It's empty here for now</h3>
         <hr>
