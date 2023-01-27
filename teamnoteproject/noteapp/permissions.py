@@ -14,3 +14,8 @@ class MemberPermissionsMixin:
 class NoteMemberPermissionsMixin(MemberPermissionsMixin):
     def has_permissions(self):
         return self.request.user in self.get_object().team.members.all()
+
+
+class UserPagePermissionsMixin(MemberPermissionsMixin):
+    def has_permissions(self):
+        return self.request.user == self.get_object()

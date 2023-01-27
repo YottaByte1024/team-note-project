@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 
 from .models import Note, Team
-from .permissions import MemberPermissionsMixin, NoteMemberPermissionsMixin
+from .permissions import MemberPermissionsMixin, NoteMemberPermissionsMixin, UserPagePermissionsMixin
 
 
 class NoteDetailView(NoteMemberPermissionsMixin, DetailView):
@@ -59,6 +59,19 @@ class TeamNotesDetailView(MemberPermissionsMixin, DetailView):
     template_name = 'noteapp/team_notes.html'
     context_object_name = 'team'
     pk_url_kwarg = 'team_id'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
+
+class UserDetailView(UserPagePermissionsMixin, DetailView):
+    model = User
+    template_name = 'noteapp/user.html'
+    context_object_name = 'user'
+
+    def get_queryset(self):
+        return User.objects.filter(id=self.request.user.id)
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)

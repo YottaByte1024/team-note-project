@@ -1,0 +1,33 @@
+{% extends "noteapp/base.html" %}
+{% load static %}
+
+
+{% block title %}User - {{ user.username }}{% endblock %}
+
+{% block content %}
+{% if request.user.is_authenticated %}
+<div class="container toolbox">
+    <a class="button" href="{% url 'userteams-detail-view' request.user.id %}">Teams</a>
+    <a class="button" href="{% url 'note-list-view' %}">Own teams</a>
+    <div class="empty-field"></div>
+    <a class="button" href="{% url 'note-list-view' %}">Change info</a>
+</div>
+{% endif %}
+<div class="row">
+
+
+    <div class="col article">
+        <h1>{{ user.username }}</h1>
+        
+        <p>{{ user.first_name }} {{user.last_name}}</p>
+        
+    </div>
+
+    <div class="col article">
+        <p>Email: {{user.email}}</p>
+        <p>Date of registration: {{user.date_joined}}</p>
+
+    </div>
+
+</div>
+{% endblock content %}
