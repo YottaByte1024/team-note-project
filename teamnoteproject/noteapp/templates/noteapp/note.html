@@ -1,5 +1,6 @@
 {% extends "noteapp/base.html" %}
 {% load static %}
+{% load markdown %}
 
 
 {% block title %}Notes - {{ note.name }}{% endblock %}
@@ -25,7 +26,7 @@
     </div>
 
     <div class="col article">
-        <p>{{ note.text }}</p>
+        <p>{{ note.text | markdown | script_escape | safe }}</p>
     </div>
 
 </div>
