@@ -4,7 +4,7 @@
 {% block content %}
 <div class="row">
     <div class="col article">
-        <h1 class="register">Add note</h1>
+        <h1 class="register">Note</h1>
 
         <form method="post">
             {% csrf_token %}
@@ -16,7 +16,7 @@
             <div class="form-error">{{ f.errors }}</div>
             {% endfor %}
             <div class="form-error">{{ form.non_field_errors }}</div>
-            <button type="submit">Add note</button>
+            <button type="submit">Done</button>
         </form>
     </div>
 </div>

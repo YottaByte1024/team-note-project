@@ -9,7 +9,7 @@
 <div class="container toolbox">
     <a class="button" href="{% url 'teamnotes-detail-view' note.team_id %}">Team</a>
     <div class="empty-field"></div>
-    <a class="button" href="{% url 'note-list-view' %}">Change</a>
+    <a class="button" href="{% url 'note-update-view' note.team_id note.id %}">Change</a>
 </div>
 {% endif %}
 <div class="row">

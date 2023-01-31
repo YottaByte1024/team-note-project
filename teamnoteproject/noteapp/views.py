@@ -97,5 +97,20 @@ class TeamNoteCreateView(MemberPermissionsMixin, CreateView):
         return kwargs
 
 
+class TeamNoteUpdateView(NoteMemberPermissionsMixin, UpdateView):
+    model = Note
+    form_class = AddNoteForm
+    template_name = 'noteapp/add_note.html'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        local_query = Team.objects.filter(id=self.kwargs['team_id']).first().members.all()
+        kwargs.update({
+            'team_id': self.kwargs['team_id'] 
+            if self.request.user in local_query else None,
+        })
+        return kwargs
+
+
 def notes_plug(request):
     return HttpResponse("Notes")

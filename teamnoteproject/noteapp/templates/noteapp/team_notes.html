@@ -9,7 +9,7 @@
 <div class="container toolbox">
     <a class="button" href="{% url 'userteams-detail-view' request.user.id %}">Teams</a>
     <div class="empty-field"></div>
-    <a class="button" href="{% url 'note-list-view' %}">Add note</a>
+    <a class="button" href="{% url 'teamnote-create-view' team.id %}">Add note</a>
 </div>
 
 
