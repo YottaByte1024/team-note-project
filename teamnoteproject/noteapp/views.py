@@ -1,7 +1,10 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
+
+from .forms import AddNoteForm
 
 from .models import Note, Team
 from .permissions import MemberPermissionsMixin, NoteMemberPermissionsMixin, UserPagePermissionsMixin
@@ -76,6 +79,22 @@ class UserDetailView(UserPagePermissionsMixin, DetailView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         return context
+
+
+class TeamNoteCreateView(MemberPermissionsMixin, CreateView):
+    model = Team
+    pk_url_kwarg = 'team_id'
+    form_class = AddNoteForm
+    template_name = 'noteapp/add_note.html'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        local_query = Team.objects.filter(id=self.kwargs['team_id']).first().members.all()
+        kwargs.update({
+            'team_id': self.kwargs['team_id'] 
+            if self.request.user in local_query else None,
+        })
+        return kwargs
 
 
 def notes_plug(request):

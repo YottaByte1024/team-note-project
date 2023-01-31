@@ -1,0 +1,23 @@
+{% extends 'noteapp/base.html' %}
+{% block title %}Add note - {% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col article">
+        <h1 class="register">Add note</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            {% for f in form %}
+            <p>
+                <label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>
+                {{ f }}
+            </p>
+            <div class="form-error">{{ f.errors }}</div>
+            {% endfor %}
+            <div class="form-error">{{ form.non_field_errors }}</div>
+            <button type="submit">Add note</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

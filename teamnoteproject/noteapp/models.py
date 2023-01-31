@@ -21,6 +21,9 @@ class Note(models.Model):
     def get_absolute_url(self):
         return reverse('note-detail-view', args=[str(self.team_id), str(self.id)])
 
+    class Meta:
+        ordering = ['-date_change']
+
 
 class Team(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -36,3 +39,6 @@ class Team(models.Model):
 
     def get_absolute_url(self):
         return reverse('teamnotes-detail-view', args=[str(self.id)])
+    
+    class Meta:
+        ordering = ['name']
