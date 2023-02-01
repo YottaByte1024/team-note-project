@@ -13,7 +13,7 @@ register = template.Library()
 def markdown(value):
     return md.markdown(
         value,
-        extensions=['extra']
+        extensions=['pymdownx.extra']
     )
 
 @register.filter()

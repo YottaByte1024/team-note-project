@@ -96,6 +96,13 @@ class TeamNoteCreateView(MemberPermissionsMixin, CreateView):
         })
         return kwargs
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Add note"
+        context['heading'] = "Note creating"
+        context['buttondone'] = "Add"
+        return context
+
 
 class TeamNoteUpdateView(NoteMemberPermissionsMixin, UpdateView):
     model = Note
@@ -110,6 +117,13 @@ class TeamNoteUpdateView(NoteMemberPermissionsMixin, UpdateView):
             if self.request.user in local_query else None,
         })
         return kwargs
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Update note"
+        context['heading'] = "Note"
+        context['buttondone'] = "Update"
+        return context
 
 
 def notes_plug(request):
