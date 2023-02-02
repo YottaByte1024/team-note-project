@@ -3,7 +3,7 @@
 {% load markdown %}
 
 
-{% block title %}Notes - {{ note.name }}{% endblock %}
+{% block title %}{{ note.team.name }} - {{ note.name }}{% endblock %}
 
 {% block content %}
 {% if request.user.is_authenticated %}
