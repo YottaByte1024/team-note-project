@@ -19,7 +19,11 @@
     <div class="container navbar">
         <div class="nav"></div>
 
-        {% show_navmenu request.path %}
+        <div class="nav">
+            {% url "userteams-detail-view" pk=request.user.id as teams_url %}
+            <a class="nav {% if request.get_full_path == teams_url %}active{% endif %}"
+               href="{{ teams_url }}">Teams</a>
+        </div>
         <div class="nav empty-field"></div>
 
         <div class="nav"></div>
