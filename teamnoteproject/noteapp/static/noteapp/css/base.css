@@ -168,21 +168,26 @@ div.toolbox {
     color: var(--colColor);
 }
 
+.row > .col{
+    transition: background-color 0.3s, transform 0.3s;
+}
+
 .row > .col.article {
     width: 100%;
     display: block;
     /*max-width: 800px;*/
-    transition: background-color 0.3s, transform 0.3s;
+    
 }
 
-a.col.article:link{
+
+a.col:link{
     text-decoration: none;
 }
 
-a.col.article:hover{
+a.col:hover{
     text-decoration: none;
     background-color: var(--colBGHover);
-    transform: scale(101%);
+    transform: scale(102%);
 }
 
 
