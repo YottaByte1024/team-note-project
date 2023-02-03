@@ -6,7 +6,7 @@
 {% block content %}
 {% if request.user.is_authenticated %}
     <div class="container toolbox">
-        <a class="button" href="{% url 'note-list-view' %}">Create team</a>
+        <a class="button" href="{% url 'team-create-view' request.user.id %}">Create team</a>
     </div>
     {% endif %}
 <div class="row">

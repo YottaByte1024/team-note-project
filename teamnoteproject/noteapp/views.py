@@ -3,8 +3,9 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import AddNoteForm
+from .forms import AddNoteForm, AddTeamForm
 
 from .models import Note, Team
 from .permissions import MemberPermissionsMixin, NoteMemberPermissionsMixin, UserPagePermissionsMixin
@@ -123,6 +124,30 @@ class TeamNoteUpdateView(NoteMemberPermissionsMixin, UpdateView):
         context['title'] = "Update note"
         context['heading'] = "Note"
         context['buttondone'] = "Update"
+        return context
+
+
+class TeamCreateView(LoginRequiredMixin, CreateView):
+    model = Team
+    # pk_url_kwarg = 'team_id'
+    form_class = AddTeamForm
+    template_name = 'noteapp/add_team.html'
+    login_url = reverse_lazy('note-list-view')
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        local_query = User.objects.filter(id=self.kwargs['pk']).first()
+        kwargs.update({
+            'user': self.request.user
+            if self.request.user == local_query else None,
+        })
+        return kwargs
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Create team"
+        context['heading'] = "Team creating"
+        context['buttondone'] = "Create"
         return context
 
 

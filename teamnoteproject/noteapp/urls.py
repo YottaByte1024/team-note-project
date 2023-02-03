@@ -6,6 +6,8 @@ urlpatterns = [
          views.notes_plug, name='note-list-view'),
     path('<int:pk>/',
          views.UserDetailView.as_view(), name='user-detail-view'),
+    path('<int:pk>/create_team/',
+         views.TeamCreateView.as_view(), name='team-create-view'),
     path('<int:pk>/teams/',
          views.UserTeamsDetailView.as_view(), name='userteams-detail-view'),
     path('<uuid:team_id>/',

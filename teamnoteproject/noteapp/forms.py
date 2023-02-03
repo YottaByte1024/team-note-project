@@ -1,6 +1,6 @@
 from django import forms
 
-from noteapp.models import Note
+from .models import Note, Team
 
 
 class AddNoteForm(forms.ModelForm):
@@ -19,4 +19,24 @@ class AddNoteForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-input'}),
             'text': forms.Textarea(attrs={'class': 'form-textarea'})
+        }
+
+
+class AddTeamForm(forms.ModelForm):
+
+    def __init__(self, user, *args, **kwargs):
+        self.user = user
+        super().__init__(*args, **kwargs)
+
+    def save(self, *args, **kwargs):
+        self.instance.head_id = self.user.id
+        self.instance.save()
+        self.instance.members.add(self.user)
+        return super().save(*args, **kwargs)
+
+    class Meta:
+        model = Team
+        fields = ('name', )
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-input'})
         }
