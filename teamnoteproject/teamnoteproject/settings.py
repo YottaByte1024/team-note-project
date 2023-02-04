@@ -37,7 +37,7 @@ else:
     warn('Using random SECRET_KEY. '
          'Should configure it for production.')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition

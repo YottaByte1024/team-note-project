@@ -8,15 +8,15 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import AddNoteForm, AddTeamForm
 
 from .models import Note, Team
-from .permissions import MemberPermissionsMixin, NoteMemberPermissionsMixin, NotesListMemberPermissionsMixin, UserPagePermissionsMixin
+from .permissions import MemberPermissionsMixin, NoteMemberPermissionsMixin, \
+    NotesListMemberPermissionsMixin, UserPagePermissionsMixin
 
 
 class NoteDetailView(NoteMemberPermissionsMixin, DetailView):
+    """Show note"""
     model = Note
-    # queryset = Note.objects.filter().order_by('-id')
     template_name = 'noteapp/note.html'
     context_object_name = 'note'
-    # pk_url_kwarg = 'note_id'
 
     def get_queryset(self):
         team_url = self.kwargs['team_id']
@@ -28,12 +28,14 @@ class NoteDetailView(NoteMemberPermissionsMixin, DetailView):
 
 
 class TeamNotesListView(NotesListMemberPermissionsMixin, ListView):
+    """Show notes in team"""
     paginate_by = 20
     model = Note
     template_name = 'noteapp/team_notes.html'
     context_object_name = 'notes'
-    
+
     def get_queryset(self):
+        # show only those notes that are in the current team
         team_url = self.kwargs['team_id']
         if self.request.user in Team.objects.filter(id=team_url).first().members.all():
             return Note.objects.filter(team_id=team_url).order_by('-date_change')
@@ -43,14 +45,16 @@ class TeamNotesListView(NotesListMemberPermissionsMixin, ListView):
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
         context['team_id'] = self.kwargs['team_id']
+        context['team_name'] = Team.objects.filter(
+            id=self.kwargs['team_id']).first().name
         return context
 
 
 class UserTeamsDetailView(DetailView):
+    """Show teams which available to user"""
     model = User
     template_name = 'noteapp/team_list.html'
     context_object_name = 'user'
-    # pk_url_kwarg = 'note_id'
 
     def get_queryset(self):
         return User.objects.filter(id=self.request.user.id)
@@ -67,7 +71,6 @@ class TeamNotesDetailView(MemberPermissionsMixin, DetailView):
     template_name = 'noteapp/team_notes.html'
     context_object_name = 'team'
     pk_url_kwarg = 'team_id'
-    
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -75,6 +78,7 @@ class TeamNotesDetailView(MemberPermissionsMixin, DetailView):
 
 
 class UserDetailView(UserPagePermissionsMixin, DetailView):
+    """Show user page"""
     model = User
     template_name = 'noteapp/user.html'
     context_object_name = 'user'
@@ -88,6 +92,7 @@ class UserDetailView(UserPagePermissionsMixin, DetailView):
 
 
 class TeamNoteCreateView(MemberPermissionsMixin, CreateView):
+    """Create new note in current team"""
     model = Team
     pk_url_kwarg = 'team_id'
     form_class = AddNoteForm
@@ -95,6 +100,7 @@ class TeamNoteCreateView(MemberPermissionsMixin, CreateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
+        # add team_id to kwargs
         local_query = Team.objects.filter(
             id=self.kwargs['team_id']).first().members.all()
         kwargs.update({
@@ -112,12 +118,14 @@ class TeamNoteCreateView(MemberPermissionsMixin, CreateView):
 
 
 class TeamNoteUpdateView(NoteMemberPermissionsMixin, UpdateView):
+    """Update current note"""
     model = Note
     form_class = AddNoteForm
     template_name = 'noteapp/add_note.html'
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
+        # add team_id to kwargs
         local_query = Team.objects.filter(
             id=self.kwargs['team_id']).first().members.all()
         kwargs.update({
@@ -135,14 +143,15 @@ class TeamNoteUpdateView(NoteMemberPermissionsMixin, UpdateView):
 
 
 class TeamCreateView(LoginRequiredMixin, CreateView):
+    """Create new team"""
     model = Team
-    # pk_url_kwarg = 'team_id'
     form_class = AddTeamForm
     template_name = 'noteapp/add_team.html'
     login_url = reverse_lazy('note-list-view')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
+        # add user to kwargs
         local_query = User.objects.filter(id=self.kwargs['pk']).first()
         kwargs.update({
             'user': self.request.user
