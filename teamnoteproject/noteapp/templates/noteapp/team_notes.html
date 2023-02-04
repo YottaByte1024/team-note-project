@@ -9,13 +9,13 @@
 <div class="container toolbox">
     <a class="button" href="{% url 'userteams-detail-view' request.user.id %}">Teams</a>
     <div class="empty-field"></div>
-    <a class="button" href="{% url 'teamnote-create-view' team.id %}">Add note</a>
+    <a class="button" href="{% url 'teamnote-create-view' team_id %}">Add note</a>
 </div>
 
 
 <div class="row">
 
-    {% for note in team.notes.all %}
+    {% for note in notes %}
     <a href="{{ note.get_absolute_url }}" class="col">
 
         <h1>{{ note.name }}</h1>
@@ -24,7 +24,7 @@
     </a>
     {% endfor %}
 
-    {% if not team.notes.all %}
+    {% if not notes %}
     <div class="col article">
         <h3>It's empty here for now</h3>
         <hr>

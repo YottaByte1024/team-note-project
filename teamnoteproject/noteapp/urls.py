@@ -11,7 +11,7 @@ urlpatterns = [
     path('<int:pk>/teams/',
          views.UserTeamsDetailView.as_view(), name='userteams-detail-view'),
     path('<uuid:team_id>/',
-         views.TeamNotesDetailView.as_view(), name='teamnotes-detail-view'),
+         views.TeamNotesListView.as_view(), name='teamnotes-detail-view'),
     path('<uuid:team_id>/add_note/',
          views.TeamNoteCreateView.as_view(), name='teamnote-create-view'),
     path('<uuid:team_id>/<uuid:pk>/',

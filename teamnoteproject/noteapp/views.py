@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import AddNoteForm, AddTeamForm
 
 from .models import Note, Team
-from .permissions import MemberPermissionsMixin, NoteMemberPermissionsMixin, UserPagePermissionsMixin
+from .permissions import MemberPermissionsMixin, NoteMemberPermissionsMixin, NotesListMemberPermissionsMixin, UserPagePermissionsMixin
 
 
 class NoteDetailView(NoteMemberPermissionsMixin, DetailView):
@@ -27,19 +27,22 @@ class NoteDetailView(NoteMemberPermissionsMixin, DetailView):
         return context
 
 
-class TeamNotesListView(ListView):
+class TeamNotesListView(NotesListMemberPermissionsMixin, ListView):
+    paginate_by = 20
     model = Note
-    # queryset = Team.objects.filter().order_by('-id')
     template_name = 'noteapp/team_notes.html'
     context_object_name = 'notes'
-    # pk_url_kwarg = 'note_id'
-
+    
     def get_queryset(self):
         team_url = self.kwargs['team_id']
-        return Note.objects.filter(team_id=team_url).order_by('-id')
+        if self.request.user in Team.objects.filter(id=team_url).first().members.all():
+            return Note.objects.filter(team_id=team_url).order_by('-date_change')
+        else:
+            return Note.objects.none()
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
+        context['team_id'] = self.kwargs['team_id']
         return context
 
 
@@ -58,11 +61,13 @@ class UserTeamsDetailView(DetailView):
 
 
 class TeamNotesDetailView(MemberPermissionsMixin, DetailView):
+    """Dead DetailView"""
     model = Team
     queryset = Team.objects.filter()
     template_name = 'noteapp/team_notes.html'
     context_object_name = 'team'
     pk_url_kwarg = 'team_id'
+    
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -90,9 +95,10 @@ class TeamNoteCreateView(MemberPermissionsMixin, CreateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        local_query = Team.objects.filter(id=self.kwargs['team_id']).first().members.all()
+        local_query = Team.objects.filter(
+            id=self.kwargs['team_id']).first().members.all()
         kwargs.update({
-            'team_id': self.kwargs['team_id'] 
+            'team_id': self.kwargs['team_id']
             if self.request.user in local_query else None,
         })
         return kwargs
@@ -112,9 +118,10 @@ class TeamNoteUpdateView(NoteMemberPermissionsMixin, UpdateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        local_query = Team.objects.filter(id=self.kwargs['team_id']).first().members.all()
+        local_query = Team.objects.filter(
+            id=self.kwargs['team_id']).first().members.all()
         kwargs.update({
-            'team_id': self.kwargs['team_id'] 
+            'team_id': self.kwargs['team_id']
             if self.request.user in local_query else None,
         })
         return kwargs
