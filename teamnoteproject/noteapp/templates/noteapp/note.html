@@ -8,7 +8,7 @@
 {% block content %}
 {% if request.user.is_authenticated %}
 <div class="container toolbox">
-    <a class="button" href="{% url 'teamnotes-detail-view' note.team_id %}">Team</a>
+    <a class="button" href="{% url 'teamnotes-list-view' note.team_id %}">Team</a>
     <div class="empty-field"></div>
     <a class="button" href="{% url 'note-update-view' note.team_id note.id %}">Change</a>
 </div>

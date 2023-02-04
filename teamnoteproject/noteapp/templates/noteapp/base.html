@@ -24,8 +24,15 @@
             <a class="nav {% if request.get_full_path == teams_url %}active{% endif %}"
                href="{{ teams_url }}">Teams</a>
         </div>
-        <div class="nav empty-field"></div>
 
+        <div class="nav empty-field"></div>
+        {% if request.user.is_authenticated %}
+        <div class="nav">
+            {% url "user-detail-view" pk=request.user.id as user_url %}
+            <a class="nav {% if request.get_full_path == user_url %}active{% endif %}"
+               href="{{ user_url }}">{{request.user.username}}</a>
+        </div>
+        {% endif %}
         <div class="nav"></div>
 
     </div>

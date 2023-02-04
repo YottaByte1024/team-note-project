@@ -38,7 +38,7 @@ class Team(models.Model):
         return self.name
 
     def get_absolute_url(self):
-        return reverse('teamnotes-detail-view', args=[str(self.id)])
+        return reverse('teamnotes-list-view', args=[str(self.id)])
     
     class Meta:
         ordering = ['name']
