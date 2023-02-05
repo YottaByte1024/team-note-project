@@ -14,6 +14,9 @@
     <a class="button" href="{% url 'archive-note' note.team_id note.id %}">
         {% if note.archived %}Unarchive note{% else %}Archive note{% endif %}
     </a>
+    {% if note.archived %}
+    <a class="button red-button" href="{% url 'note-delete-view' note.team_id note.id %}">Delete</a>
+    {% endif %}
 </div>
 {% endif %}
 <div class="row">

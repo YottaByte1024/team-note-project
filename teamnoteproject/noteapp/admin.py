@@ -3,7 +3,7 @@ from .models import Note, Team
 
 
 class NoteAdmin(admin.ModelAdmin):
-    list_display = ['id', 'name', 'archived']
+    list_display = ['id', 'name', 'team', 'archived']
     list_display_links = ['name']
     list_editable = ['archived']
 

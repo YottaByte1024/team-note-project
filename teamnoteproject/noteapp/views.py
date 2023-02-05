@@ -1,8 +1,8 @@
 from django.contrib.auth.models import User
 from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.urls import reverse, reverse_lazy
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import AddNoteForm, AddTeamForm
@@ -188,6 +188,36 @@ class OwnTeamsListView(ListView):
         context = super().get_context_data(**kwargs)
         context['title'] = "Own teams"
         return context
+
+
+class NoteDeleteView(NoteMemberPermissionsMixin, DeleteView):
+    model = Note
+    
+    def get_success_url(self):
+         return reverse('teamnotes-list-view', kwargs={'team_id': self.kwargs['team_id']})
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Delete note"
+        context['heading'] = f"Delete note \"{context['object'].name}\"?"
+        context['buttondone'] = "Delete"
+        return context
+
+
+class TeamDeleteView(MemberPermissionsMixin, DeleteView):
+    model = Team
+    pk_url_kwarg = 'team_id'
+    
+    def get_success_url(self):
+         return reverse('userteams-detail-view', kwargs={'pk': self.request.user.id})
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Delete team"
+        context['heading'] = f"Delete team \"{context['object'].name}\"?"
+        context['buttondone'] = "Delete"
+        return context
+
 
 def archive_note(request: HttpRequest, *args, **kwargs):
     note = get_object_or_404(Note, pk=kwargs['pk'])

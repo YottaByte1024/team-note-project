@@ -22,7 +22,7 @@
     <a class="button" href="{% url 'teamnote-create-view' team.id %}">Add note</a>
 
     {% if request.user.id == team.head_id %}
-    <a class="button red-button" href="{% url 'note-list-view' %}">Delete team</a>
+    <a class="button red-button" href="{% url 'team-delete-view' team.id %}">Delete team</a>
     {% endif %}
 </div>
 
