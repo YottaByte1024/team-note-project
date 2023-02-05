@@ -5,7 +5,7 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-from .forms import AddNoteForm, AddTeamForm
+from .forms import AddMemberForm, AddNoteForm, AddTeamForm
 
 from .models import Note, Team
 from .permissions import MemberPermissionsMixin, NoteMemberPermissionsMixin, \
@@ -216,6 +216,26 @@ class TeamDeleteView(MemberPermissionsMixin, DeleteView):
         context['title'] = "Delete team"
         context['heading'] = f"Delete team \"{context['object'].name}\"?"
         context['buttondone'] = "Delete"
+        return context
+
+
+class TeamAddMemberUpdateView(UpdateView):
+    """Add member"""
+    model = Team
+    form_class = AddMemberForm
+    template_name = 'noteapp/add_team.html'
+    login_url = reverse_lazy('note-list-view')
+    pk_url_kwarg = 'team_id'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        return kwargs
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "title"
+        context['heading'] = "heading"
+        context['buttondone'] = "Add"
         return context
 
 

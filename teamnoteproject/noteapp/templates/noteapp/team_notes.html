@@ -8,7 +8,11 @@
 {% if request.user.is_authenticated %}
 
 <div class="container toolbox">
-    <a class="button" href="{% url 'userteams-detail-view' request.user.id %}">Teams</a>
+    {% comment %} <a class="button" href="{% url 'userteams-detail-view' request.user.id %}">Teams</a> {% endcomment %}
+
+    {% if team.head_id == request.user.id %}
+    <a class="button" href="{% url 'addmember-update-view' team.id %}">Add member</a>
+    {% endif %}
 
     {% url 'archivednotes-list-view' team.id as archived_url %}
     {% if archived_url == request.get_full_path %}

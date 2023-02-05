@@ -20,6 +20,8 @@ urlpatterns = [
          views.TeamNoteCreateView.as_view(), name='teamnote-create-view'),
     path('<uuid:team_id>/delete_team/',
          views.TeamDeleteView.as_view(), name='team-delete-view'),
+    path('<uuid:team_id>/add_member/',
+         views.TeamAddMemberUpdateView.as_view(), name='addmember-update-view'),
     path('<uuid:team_id>/<uuid:pk>/',
          views.NoteDetailView.as_view(), name='note-detail-view'),
     path('<uuid:team_id>/<uuid:pk>/archive/',
