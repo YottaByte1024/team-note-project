@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
-from django.http import HttpResponse
-from django.shortcuts import render
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -38,7 +38,7 @@ class TeamNotesListView(NotesListMemberPermissionsMixin, ListView):
         # show only those notes that are in the current team
         team_url = self.kwargs['team_id']
         if self.request.user in Team.objects.filter(id=team_url).first().members.all():
-            return Note.objects.filter(team_id=team_url).order_by('-date_change')
+            return Note.objects.filter(team_id=team_url, archived=False).order_by('-date_change')
         else:
             return Note.objects.none()
 
@@ -47,6 +47,16 @@ class TeamNotesListView(NotesListMemberPermissionsMixin, ListView):
         context['team'] = Team.objects.filter(
             id=self.kwargs['team_id']).first()
         return context
+
+
+class TeamArchivedNotesListView(TeamNotesListView):
+    def get_queryset(self):
+        # show only those notes that are in the current team
+        team_url = self.kwargs['team_id']
+        if self.request.user in Team.objects.filter(id=team_url).first().members.all():
+            return Note.objects.filter(team_id=team_url, archived=True).order_by('-date_change')
+        else:
+            return Note.objects.none()
 
 
 class UserTeamsDetailView(DetailView):
@@ -179,6 +189,13 @@ class OwnTeamsListView(ListView):
         context['title'] = "Own teams"
         return context
 
+def archive_note(request: HttpRequest, *args, **kwargs):
+    note = get_object_or_404(Note, pk=kwargs['pk'])
+    note.archived = not note.archived
+    note.save()
+    return redirect('note-detail-view', 
+                    kwargs['team_id'],
+                    kwargs['pk'])
 
 def notes_plug(request):
     return HttpResponse("Notes")

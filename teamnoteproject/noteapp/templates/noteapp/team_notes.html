@@ -6,10 +6,21 @@
 {% block content %}
 
 {% if request.user.is_authenticated %}
+
 <div class="container toolbox">
     <a class="button" href="{% url 'userteams-detail-view' request.user.id %}">Teams</a>
+
+    {% url 'archivednotes-list-view' team.id as archived_url %}
+    {% if archived_url == request.get_full_path %}
+    <a class="button" href="{% url 'teamnotes-list-view' team.id %}">Notes</a>
+    {% else %}
+    <a class="button" href="{% url 'archivednotes-list-view' team.id %}">Archived notes</a>
+    {% endif %}
+
     <div class="empty-field"></div>
+
     <a class="button" href="{% url 'teamnote-create-view' team.id %}">Add note</a>
+
     {% if request.user.id == team.head_id %}
     <a class="button red-button" href="{% url 'note-list-view' %}">Delete team</a>
     {% endif %}
@@ -35,5 +46,7 @@
     </div>
     {% endif %}
 </div>
+
 {% endif %}
+
 {% endblock content %}

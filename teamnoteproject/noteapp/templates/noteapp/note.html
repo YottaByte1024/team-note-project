@@ -11,6 +11,9 @@
     <a class="button" href="{% url 'teamnotes-list-view' note.team_id %}">Team</a>
     <div class="empty-field"></div>
     <a class="button" href="{% url 'note-update-view' note.team_id note.id %}">Change</a>
+    <a class="button" href="{% url 'archive-note' note.team_id note.id %}">
+        {% if note.archived %}Unarchive note{% else %}Archive note{% endif %}
+    </a>
 </div>
 {% endif %}
 <div class="row">
@@ -18,7 +21,7 @@
 
     <div class="col article">
         <h1>{{ note.name }}</h1>
-        {% if note.archived == True %}
+        {% if note.archived %}
         <p>Archived</p>
         {% endif %}
         <p>Date of creation: {{note.date_create}}</p>
