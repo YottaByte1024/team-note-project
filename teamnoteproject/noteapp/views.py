@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.http import HttpRequest, HttpResponse
+from django.http import Http404, HttpRequest, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
@@ -191,8 +191,13 @@ class OwnTeamsListView(ListView):
 
 def archive_note(request: HttpRequest, *args, **kwargs):
     note = get_object_or_404(Note, pk=kwargs['pk'])
-    note.archived = not note.archived
-    note.save()
+    if not request.user.is_authenticated:
+        raise Http404()
+    if request.user in note.team.members.all():
+        note.archived = not note.archived
+        note.save()
+    else:
+        raise Http404()
     return redirect('note-detail-view', 
                     kwargs['team_id'],
                     kwargs['pk'])
