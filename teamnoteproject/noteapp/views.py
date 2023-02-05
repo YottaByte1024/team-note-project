@@ -44,9 +44,8 @@ class TeamNotesListView(NotesListMemberPermissionsMixin, ListView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['team_id'] = self.kwargs['team_id']
-        context['team_name'] = Team.objects.filter(
-            id=self.kwargs['team_id']).first().name
+        context['team'] = Team.objects.filter(
+            id=self.kwargs['team_id']).first()
         return context
 
 
@@ -164,6 +163,20 @@ class TeamCreateView(LoginRequiredMixin, CreateView):
         context['title'] = "Create team"
         context['heading'] = "Team creating"
         context['buttondone'] = "Create"
+        return context
+
+
+class OwnTeamsListView(ListView):
+    model = Team
+    template_name = 'noteapp/own_teams.html'
+    context_object_name = 'teams'
+
+    def get_queryset(self):
+        return Team.objects.filter(head_id=self.request.user.id)
+    
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = "Own teams"
         return context
 
 

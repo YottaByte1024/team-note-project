@@ -1,7 +1,7 @@
 {% extends "noteapp/base.html" %}
 {% load static %}
 
-{% block title %}Team - {{team_name}}{% endblock %}
+{% block title %}Team - {{team.name}}{% endblock %}
 
 {% block content %}
 
@@ -9,7 +9,10 @@
 <div class="container toolbox">
     <a class="button" href="{% url 'userteams-detail-view' request.user.id %}">Teams</a>
     <div class="empty-field"></div>
-    <a class="button" href="{% url 'teamnote-create-view' team_id %}">Add note</a>
+    <a class="button" href="{% url 'teamnote-create-view' team.id %}">Add note</a>
+    {% if request.user.id == team.head_id %}
+    <a class="button red-button" href="{% url 'note-list-view' %}">Delete team</a>
+    {% endif %}
 </div>
 
 
@@ -28,8 +31,6 @@
     <div class="col article">
         <h3>It's empty here for now</h3>
         <hr>
-
-        <p>No article has been published or does not exist!</p>
         <p>Please visit this site later.</p>
     </div>
     {% endif %}

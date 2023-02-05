@@ -10,6 +10,8 @@ urlpatterns = [
          views.TeamCreateView.as_view(), name='team-create-view'),
     path('<int:pk>/teams/',
          views.UserTeamsDetailView.as_view(), name='userteams-detail-view'),
+    path('<int:pk>/own_teams/',
+         views.OwnTeamsListView.as_view(), name='ownteams-list-view'),
     path('<uuid:team_id>/',
          views.TeamNotesListView.as_view(), name='teamnotes-list-view'),
     path('<uuid:team_id>/add_note/',

@@ -87,6 +87,10 @@ form > button:hover,
     line-height: 30px;
 }
 
+.red-button{
+    color: #ff6060;
+}
+
 .form-textarea{
     
     height: 100px;
@@ -108,9 +112,14 @@ form > button:hover,
         border: 0px solid white;
         color: var(--colColor);
     }
+    
+    .red-button{
+        color: #ff6060;
+    }
 
     form > button:active
     .button:active{
         background-color: var(--navbarLinkActive);
     }
 }
+

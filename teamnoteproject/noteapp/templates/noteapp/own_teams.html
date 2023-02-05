@@ -1,18 +1,17 @@
 {% extends "noteapp/base.html" %}
 {% load static %}
 
-{% block title %}Teams - {{request.user.username}}{% endblock %}
+{% block title %}{{title}} - {{request.user.username}}{% endblock %}
 
 {% block content %}
 {% if request.user.is_authenticated %}
     <div class="container toolbox">
-        <div class="empty-field"></div>
         <a class="button" href="{% url 'team-create-view' request.user.id %}">Create team</a>
     </div>
     {% endif %}
 <div class="row">
 
-    {% for team in user.teams.all %}
+    {% for team in teams %}
     <a href="{{ team.get_absolute_url }}" class="col">
 
         <h1>{{ team.name }}</h1>
@@ -21,7 +20,7 @@
     </a>
     {% endfor %}
 
-    {% if not user.teams.all %}
+    {% if not teams %}
     <div class="col article">
         <h3>It's empty here for now</h3>
         <hr>

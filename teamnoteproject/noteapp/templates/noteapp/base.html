@@ -20,12 +20,21 @@
         <div class="nav"></div>
 
         <div class="nav">
+            {% url "note-list-view" as noteapp_url %}
+            <a class="nav {% if request.get_full_path == noteapp_url %}active{% endif %}"
+               href="{{ noteapp_url }}">NoteApp</a>
+        </div>
+
+        {% if request.user.is_authenticated %}
+        <div class="nav">
             {% url "userteams-detail-view" pk=request.user.id as teams_url %}
             <a class="nav {% if request.get_full_path == teams_url %}active{% endif %}"
                href="{{ teams_url }}">Teams</a>
         </div>
+        {% endif %}
 
         <div class="nav empty-field"></div>
+
         {% if request.user.is_authenticated %}
         <div class="nav">
             {% url "user-detail-view" pk=request.user.id as user_url %}
@@ -33,8 +42,8 @@
                href="{{ user_url }}">{{request.user.username}}</a>
         </div>
         {% endif %}
-        <div class="nav"></div>
 
+        <div class="nav"></div>
     </div>
     {% block header %}
     {% endblock header %}
