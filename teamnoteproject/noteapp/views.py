@@ -233,8 +233,8 @@ class TeamAddMemberUpdateView(UpdateView):
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['title'] = "title"
-        context['heading'] = "heading"
+        context['title'] = f"{context['object'].name} - Add member"
+        context['heading'] = "Adding a member"
         context['buttondone'] = "Add"
         return context
 

@@ -150,6 +150,10 @@ div.toolbox {
     color: var(--colColor);
 }
 
+div.toolbox > a.button{
+    white-space: nowrap;
+}
+
 .row {
     display: flex;
     flex-direction: row;
@@ -265,6 +269,10 @@ span.paginator-num > a:hover{
 
 .empty-field{
     flex-grow: 1;
+}
+
+.empty-toolbox{
+    height: 10px;
 }
 
 a.col{
