@@ -27,12 +27,13 @@
         {% if note.archived %}
         <p>Archived</p>
         {% endif %}
+        <hr>
         <p>Date of creation: {{note.date_create}}</p>
         <p>Date of change: {{note.date_change}}</p>
     </div>
 
     <div class="col article">
-        <p>{{ note.text | markdown | script_escape | safe }}</p>
+        <div class="markdown-body">{{ note.text | markdown | script_escape | safe }}</div>
     </div>
 
 </div>

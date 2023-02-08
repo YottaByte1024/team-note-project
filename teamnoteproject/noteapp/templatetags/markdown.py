@@ -13,8 +13,11 @@ register = template.Library()
 def markdown(value):
     return md.markdown(
         value,
-        extensions=['pymdownx.extra']
+        extensions=['pymdownx.extra',
+                    'pymdownx.tasklist'],
+        extension_configs={'pymdownx.tasklist': {'custom_checkbox': True}}
     )
+
 
 @register.filter()
 @stringfilter
