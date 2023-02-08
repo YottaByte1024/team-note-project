@@ -9,11 +9,11 @@
 
 <div class="container toolbox">
     
-    <a class="button" href="{% url 'note-list-view' %}">Members</a>
+    <a class="button" href="{% url 'members-detail-view' team.id %}">Members</a>
 
-    {% if team.head_id == request.user.id %}
+    {% comment %} {% if team.head_id == request.user.id %}
     <a class="button" href="{% url 'addmember-update-view' team.id %}">Add member</a>
-    {% endif %}
+    {% endif %} {% endcomment %}
 
     <div class="empty-field"></div>
 
@@ -21,7 +21,9 @@
     <a class="button red-button" href="{% url 'team-delete-view' team.id %}">Delete team</a>
     {% endif %}
 </div>
+
 <div class="empty-toolbox"></div>
+
 <div class="container toolbox">
 
     {% url 'archivednotes-list-view' team.id as archived_url %}

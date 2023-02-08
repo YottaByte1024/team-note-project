@@ -1,0 +1,33 @@
+{% extends 'noteapp/base.html' %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+
+<div class="container toolbox">
+    <a class="button" href="{% url 'teamnotes-list-view' team.id %}">Team</a>
+    <div class="empty-field"></div>
+    {% if team.head_id == request.user.id %}
+    <a class="button" href="{% url 'addmember-update-view' team.id %}">Add member</a>
+    {% endif %}
+</div>
+
+<div class="row">
+    <div class="col article">
+        <h1 class="">{{ heading }}</h1>
+        {% for member in team.members.all %}
+        
+            <div class="container toolbox">
+                <a class="button small-button">{{member.username}}</a>
+
+                <div class="empty-field"></div>
+                {% if request.user.id == team.head_id and member.id != team.head_id %}
+                <a class="button red-button small-button" href="{% url 'delete-member' team.id %}?member_id={{ member.id }}">Delete</a>
+                {% endif %}
+            </div>
+            
+        
+        {% endfor %}
+        <div class="empty-toolbox"></div>
+    </div>
+</div>
+{% endblock %}

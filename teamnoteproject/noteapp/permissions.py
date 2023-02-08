@@ -27,3 +27,7 @@ class NotesListMemberPermissionsMixin(MemberPermissionsMixin):
     def has_permissions(self):
         members = Team.objects.filter(id=self.kwargs['team_id']).first().members.all()
         return self.request.user in members
+
+class TeamHeadPermissionsMixin(MemberPermissionsMixin):
+    def has_permissions(self):
+        return self.request.user.id == self.get_object().head_id

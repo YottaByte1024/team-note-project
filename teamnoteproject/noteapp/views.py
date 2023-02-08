@@ -9,7 +9,7 @@ from .forms import AddMemberForm, AddNoteForm, AddTeamForm
 
 from .models import Note, Team
 from .permissions import MemberPermissionsMixin, NoteMemberPermissionsMixin, \
-    NotesListMemberPermissionsMixin, UserPagePermissionsMixin
+    NotesListMemberPermissionsMixin, TeamHeadPermissionsMixin, UserPagePermissionsMixin
 
 
 class NoteDetailView(NoteMemberPermissionsMixin, DetailView):
@@ -219,7 +219,7 @@ class TeamDeleteView(MemberPermissionsMixin, DeleteView):
         return context
 
 
-class TeamAddMemberUpdateView(UpdateView):
+class TeamAddMemberUpdateView(TeamHeadPermissionsMixin, UpdateView):
     """Add member"""
     model = Team
     form_class = AddMemberForm
@@ -227,9 +227,8 @@ class TeamAddMemberUpdateView(UpdateView):
     login_url = reverse_lazy('note-list-view')
     pk_url_kwarg = 'team_id'
 
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        return kwargs
+    # def get_success_url(self):
+    #     return reverse_lazy('members-detail-view', self.kwargs['team_id'])
 
     def get_context_data(self, *, object_list=None, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -237,6 +236,31 @@ class TeamAddMemberUpdateView(UpdateView):
         context['heading'] = "Adding a member"
         context['buttondone'] = "Add"
         return context
+    
+class TeamMembersDetailView(MemberPermissionsMixin, DetailView):
+    model = Team
+    template_name = 'noteapp/members.html'
+    pk_url_kwarg = 'team_id'
+    context_object_name = 'team'
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['title'] = f"{context['object'].name} - Members"
+        context['heading'] = "All members"
+        return context
+
+
+def delete_member(request: HttpRequest, *args, **kwargs):
+    team = get_object_or_404(Team, pk=kwargs['team_id'])
+    if not request.user.is_authenticated:
+        raise Http404()
+    if request.user.id == team.head_id:
+        team.members.remove(request.GET.get('member_id'))
+        team.save()
+        return redirect('members-detail-view', 
+                    kwargs['team_id'])
+    else:
+        raise Http404()
 
 
 def archive_note(request: HttpRequest, *args, **kwargs):

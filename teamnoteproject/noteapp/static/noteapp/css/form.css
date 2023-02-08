@@ -91,6 +91,12 @@ form > button:hover,
     color: #ff6060;
 }
 
+.small-button{
+    margin: 5px 5px;
+    line-height: normal;
+    height: auto;
+}
+
 .form-textarea{
     
     height: 100px;
