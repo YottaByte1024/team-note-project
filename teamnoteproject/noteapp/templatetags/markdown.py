@@ -14,7 +14,8 @@ def markdown(value):
     return md.markdown(
         value,
         extensions=['pymdownx.extra',
-                    'pymdownx.tasklist'],
+                    'pymdownx.tasklist',
+                    'pymdownx.details'],
         extension_configs={'pymdownx.tasklist': {'custom_checkbox': True}}
     )
 

@@ -1,108 +1,151 @@
-.article > pre{
-    background-color: var(--pageBG);
-    padding: 10px;
-    border-radius: 10px;
+.markdown-body>pre {
+   background-color: var(--pageBG);
+   padding: 10px;
+   border-radius: 10px;
 }
 
-.article > table{
-    border: 1px solid var(--tableBorderColor);
-    border-radius: 5px;
+.markdown-body>table {
+   border: 1px solid var(--tableBorderColor);
+   border-radius: 5px;
 }
 
-.article > table > thead,
- .article > table > tfoot{
-    background-color: var(--theadBGColor);
-    
+.markdown-body>table>thead,
+.markdown-body>table>tfoot {
+   background-color: var(--theadBGColor);
+
 }
 
-.article > table > thead > tr,
- .article > table > tfoot > tr{
-    
- }
+.markdown-body>table>thead>tr>th,
+.markdown-body>table>tfoot>tr>th {
+   border-radius: 5px;
+}
 
- .article > table > thead > tr > th,
- .article > table > tfoot > tr > th{
-    border-radius: 5px;
- }
+.markdown-body blockquote {
+   padding-left: 10px;
+   border-left: 2px solid var(--hrColor);
+   margin-left: 10px;
+}
 
- .article > blockquote{
-    padding-left: 10px;
-    border-left: 2px solid var(--hrColor);
-    margin-left: 10px;
- }
+.markdown-body img {
+   /* width: 100%; */
+   max-width: 100%;
+}
 
- .article > p > img{
-    width: 100%;
- }
+.markdown-body a {
+   text-decoration: none;
+   outline: none;
+}
 
- .article > p > a{
-    text-decoration: none;
-    outline: none;
- }
+.markdown-body a:link {
+   color: #7889ff;
+}
 
- .article > p > a:link{
-    color: #7889ff;
- }
+.markdown-body a:active {
+   color: #7889ff;
+}
 
- .article > p > a:active{
-    color: #7889ff;
- }
+.markdown-body a:hover {
+   border-bottom: 1px solid;
+   background-color: #7687fc24;
+   border-radius: 4px;
+}
 
- .article > p > a:hover{
-    border-bottom: 1px solid;
-    background-color: #7687fc24;
-    border-radius: 4px;
- }
+.markdown-body code {
+   background-color: var(--codeColor);
+   border-radius: 4px;
+   padding-left: 2px;
+   padding-right: 2px;
+}
 
- .article > p > a:visited{
-
- }
-
- .markdown-body .task-list-item {
+.markdown-body .task-list-item {
    list-style-type: none !important;
    margin-top: 3px;
- }
- 
- .markdown-body .task-list-item input[type="checkbox"] {
+}
+
+.markdown-body .task-list-item input[type="checkbox"] {
    margin: 0 4px 0.25em -20px;
    vertical-align: middle;
- }
- 
- .markdown-body .task-list-control {
-   display: inline; /* Ensure label is inline incase theme sets it to block.*/
- }
- 
- .markdown-body .task-list-control {
+}
+
+.markdown-body .task-list-control {
+   display: inline;
+   /* Ensure label is inline incase theme sets it to block.*/
+}
+
+.markdown-body .task-list-control {
    position: relative;
    display: inline-block;
    color: #555;
    cursor: pointer;
- }
- 
- .markdown-body .task-list-control input[type="checkbox"] {
+}
+
+.markdown-body .task-list-control input[type="checkbox"] {
    position: absolute;
    opacity: 0;
-   z-index: -1; /* Put the input behind the label so it doesn't overlay text */
- }
- 
- .markdown-body .task-list-indicator {
+   z-index: -1;
+   /* Put the input behind the label so it doesn't overlay text */
+}
+
+.markdown-body .task-list-indicator {
    position: absolute;
    top: -12px;
    left: -18px;
    display: block;
-   width:  14px;
+   width: 14px;
    height: 14px;
    color: #eee;
    background-color: var(--pageBG);
    border-radius: .33rem;
- }
- 
- .markdown-body .task-list-control input[type="checkbox"]:checked + .task-list-indicator::before {
+}
+
+.markdown-body .task-list-control input[type="checkbox"]:checked+.task-list-indicator::before {
    display: block;
    margin-top: 0px;
-   margin-left: 0px;
+   margin-left: 2px;
    font-size: 14px;
    line-height: 1;
    content: "✔";
    color: #1EBB52;
- }
+}
+
+.markdown-body details {
+   background-color: var(--pageBG);
+   border-radius: 4px;
+   margin: 1rem 1rem;
+   overflow: hidden;
+   border-left: 4px solid gray;
+}
+
+.markdown-body details.danger {
+   border-left: 4px solid rgba(255, 0, 0, 0.5);
+}
+
+.markdown-body summary {
+   display: block;
+   position: relative;
+   cursor: pointer;
+   padding: 1rem;
+   padding-left: 2rem;
+   background-color: grey;
+}
+
+.markdown-body summary::before {
+   content: '>';
+   position: absolute;
+   top: 1rem;
+   left: 1rem;
+   transform: rotate(0);
+   transition: .25s transform ease;
+}
+
+.markdown-body details.danger>summary{
+   background-color: rgba(255, 0, 0, 0.5);
+}
+
+details[open]>summary::before {
+   transform: rotate(90deg);
+}
+
+details>p {
+   margin-left: 1.5rem;
+}

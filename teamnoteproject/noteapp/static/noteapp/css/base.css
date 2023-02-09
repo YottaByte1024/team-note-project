@@ -34,6 +34,8 @@ html, body {
     --tableBorderColor: rgb(122, 122, 122);
     --theadBGColor: rgb(224, 224, 224);
     --hrColor: rgb(66, 65, 77);
+
+    --codeColor: var(--pageBG);
 }
 
 @media (prefers-color-scheme: dark) {
@@ -61,6 +63,8 @@ html, body {
       --tableBorderColor: rgb(122, 122, 122);
       --theadBGColor: rgb(58, 57, 70);
       --hrColor: rgb(66, 65, 77);
+
+      --codeColor: var(--pageBG);
     }
 }
 
