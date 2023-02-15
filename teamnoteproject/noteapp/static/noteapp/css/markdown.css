@@ -114,6 +114,7 @@
    margin: 1rem 1rem;
    overflow: hidden;
    border-left: 4px solid gray;
+   padding-left: 1rem;
 }
 
 .markdown-body details.danger {
@@ -127,6 +128,7 @@
    padding: 1rem;
    padding-left: 2rem;
    background-color: grey;
+   margin-left: -1rem;
 }
 
 .markdown-body summary::before {
@@ -144,8 +146,4 @@
 
 details[open]>summary::before {
    transform: rotate(90deg);
-}
-
-details>p {
-   margin-left: 1.5rem;
 }

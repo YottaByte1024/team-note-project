@@ -15,7 +15,10 @@ def markdown(value):
         value,
         extensions=['pymdownx.extra',
                     'pymdownx.tasklist',
-                    'pymdownx.details'],
+                    'pymdownx.details',
+                    'pymdownx.magiclink',
+                    'pymdownx.tilde',
+                    'pymdownx.caret'],
         extension_configs={'pymdownx.tasklist': {'custom_checkbox': True}}
     )
 
