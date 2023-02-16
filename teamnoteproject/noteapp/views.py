@@ -7,7 +7,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .forms import AddMemberForm, AddNoteForm, AddTeamForm
 
-from .models import Note, Team
+from .models import Note, Post, Team
 from .permissions import MemberPermissionsMixin, NoteMemberPermissionsMixin, \
     NotesListMemberPermissionsMixin, TeamHeadPermissionsMixin, UserPagePermissionsMixin
 
@@ -248,6 +248,14 @@ class TeamMembersDetailView(MemberPermissionsMixin, DetailView):
         context['title'] = f"{context['object'].name} - Members"
         context['heading'] = "All members"
         return context
+
+
+class PostListView(ListView):
+    model = Post
+    template_name = 'noteapp/home.html'
+    context_object_name = 'posts'
+    queryset = Post.objects.filter(is_published = True).order_by('priority', 'date_change')
+
 
 
 def delete_member(request: HttpRequest, *args, **kwargs):

@@ -1,0 +1,28 @@
+{% extends "noteapp/base.html" %}
+{% load static %}
+{% load markdown %}
+
+{% block title %}NoteApp{% endblock %}
+
+{% block content %}
+<div class="row">
+
+    {% for post in posts %}
+    <div class="col article">
+        <h1>{{ post.name }}</h1>
+        {% comment %} <p>Date: {{ post.date_create}}</p> {% endcomment %}
+        <hr>
+        <div class="markdown-body">{{ post.text | markdown | script_escape | safe }}</div>
+    </div>
+    {% endfor %}
+
+    {% if not posts %}
+    <div class="col article">
+        <h3>It's empty here for now</h3>
+        <hr>
+        <p>Please visit this site later.</p>
+    </div>
+    {% endif %}
+
+</div>
+{% endblock content %}

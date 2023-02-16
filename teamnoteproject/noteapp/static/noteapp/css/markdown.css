@@ -37,16 +37,16 @@
 }
 
 .markdown-body a:link {
-   color: #7889ff;
+   color: var(--linkColor);
 }
 
 .markdown-body a:active {
-   color: #7889ff;
+   color: var(--linkColor);
 }
 
 .markdown-body a:hover {
    border-bottom: 1px solid;
-   background-color: #7687fc24;
+   background-color: var(--linkBG);
    border-radius: 4px;
 }
 

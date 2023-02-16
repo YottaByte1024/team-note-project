@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Note, Team
+from .models import Note, Post, Team
 
 
 class NoteAdmin(admin.ModelAdmin):
@@ -13,5 +13,12 @@ class TeamAdmin(admin.ModelAdmin):
     list_display_links = ['name']
 
 
+class PostAdmin(admin.ModelAdmin):
+    list_display = ['id', 'name', 'is_published', 'priority']
+    list_display_links = ['name']
+    list_editable = ['is_published', 'priority']
+
+
 admin.site.register(Note, NoteAdmin)
 admin.site.register(Team, TeamAdmin)
+admin.site.register(Post, PostAdmin)

@@ -36,6 +36,9 @@ html, body {
     --hrColor: rgb(66, 65, 77);
 
     --codeColor: var(--pageBG);
+
+    --linkBG: #7687fc24;
+    --linkColor: #7889ff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -65,6 +68,9 @@ html, body {
       --hrColor: rgb(66, 65, 77);
 
       --codeColor: var(--pageBG);
+
+      --linkBG: #7687fc24;
+      --linkColor: #7889ff;
     }
 }
 

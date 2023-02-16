@@ -20,7 +20,7 @@
         <div class="nav"></div>
 
         <div class="nav">
-            {% url "note-list-view" as noteapp_url %}
+            {% url "post-list-view" as noteapp_url %}
             <a class="nav {% if request.get_full_path == noteapp_url %}active{% endif %}"
                href="{{ noteapp_url }}">NoteApp</a>
         </div>
@@ -41,7 +41,29 @@
             <a class="nav {% if request.get_full_path == user_url %}active{% endif %}"
                href="{{ user_url }}">{{request.user.username}}</a>
         </div>
+        {% else %}
+        <div class="nav">
+            {% url "login" as login_url %}
+            <a class="nav {% if request.get_full_path == login_url %}active{% endif %}"
+               href="{{ login_url }}">Login</a>
+        </div>
         {% endif %}
+
+
+        {% if request.user.is_authenticated %}
+        <div class="nav">
+            {% url "logout" as logout_url %}
+            <a class="nav"
+               href="{{ logout_url }}">Logout</a>
+        </div>
+        {% else %}
+        <div class="nav">
+            {% url "logout" as logout_url %}
+            <a class="nav {% if request.get_full_path == user_url %}active{% endif %}"
+               href="{{ logout_url }}">Register</a>
+        </div>
+        {% endif %}
+
 
         <div class="nav"></div>
     </div>

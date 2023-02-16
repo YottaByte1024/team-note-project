@@ -1,0 +1,36 @@
+{% extends "noteapp/base.html" %}
+
+{% block title %}Login - NoteApp{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col article">
+        <h1 class="register">Login</h1>
+        
+        {% if next %}
+          {% if user.is_authenticated %}
+          <p>Your account doesn't have access to this page. To proceed, please login with an account that has access.</p>
+          {% else %}
+          <p>Please login to see this page.</p>
+          {% endif %}
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {% for f in form %}
+            <p>
+                <label class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </label>
+                {{ f }}
+            </p>
+            <div class="form-error">{{ f.errors }}</div>
+            {% endfor %}
+
+            <div class="form-error">{{ form.non_field_errors }}</div>
+            <button type="submit">Log In</button>
+            <input type="hidden" name="next" value="{{ next }}" />
+            <p><a class="link" href="{% url 'password_reset' %}">Lost password?</a></p>
+        </form>
+        
+    </div>
+</div>
+{% endblock content %}

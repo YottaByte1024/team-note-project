@@ -42,3 +42,16 @@ class Team(models.Model):
     
     class Meta:
         ordering = ['name']
+
+
+class Post(models.Model):
+    name = models.CharField(max_length=256)
+    text = models.TextField()
+    is_article = models.BooleanField(default=True)
+    priority = models.IntegerField(default=0)
+    is_published = models.BooleanField(default=True)
+    date_create = models.DateTimeField(auto_now_add=True)
+    date_change = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
