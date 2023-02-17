@@ -24,6 +24,7 @@ urlpatterns = [
     path('noteapp/', include('noteapp.urls')),
     path('', RedirectView.as_view(url='/noteapp/', permanent=True)),
     path('accounts/', include('django.contrib.auth.urls')),
+    path('registration/', include('regapp.urls'))
 ]
 
 if settings.DEBUG:

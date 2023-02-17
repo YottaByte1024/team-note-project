@@ -58,9 +58,9 @@
         </div>
         {% else %}
         <div class="nav">
-            {% url "logout" as logout_url %}
-            <a class="nav {% if request.get_full_path == user_url %}active{% endif %}"
-               href="{{ logout_url }}">Register</a>
+            {% url "reg-create-view" as reg_url %}
+            <a class="nav {% if request.get_full_path == reg_url %}active{% endif %}"
+               href="{{ reg_url }}">Registration</a>
         </div>
         {% endif %}
 
