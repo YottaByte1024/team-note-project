@@ -1,5 +1,5 @@
-h1.register{
-    margin-left: 40px;
+h1.register {
+    margin-left: 10px;
 }
 
 form {
@@ -7,50 +7,52 @@ form {
 
 }
 
-form > p{
+form>p {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: flex-start;
-    margin-left: 40px;
-    margin-right: 40px;
-    
+    margin-left: 10px;
+    margin-right: 10px;
+
 }
 
-.form-label{
+.form-label {
     width: 200px;
     margin-bottom: 5px;
 }
 
-div.form-error > ul.errorlist{
+div.form-error>ul.errorlist {
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
     align-items: flex-start;
 }
 
-ul.errorlist > li{
+ul.errorlist>li {
     display: inline;
     margin: 5px;
 }
 
-form > p > input, .form-textarea{
+form>p>input,
+.form-textarea {
     border-style: solid;
     border: 0px;
     border-radius: 10px;
     height: 20px;
     padding: 4px;
-    color: white;
+    color: var(--colColor);
     background-color: var(--pageBG);
     width: 200px;
 }
 
-form > p > input:focus{
+form>p>input:focus {
     border: 0px solid rgb(0, 0, 0);
-    
+
 }
-form > p > input:focus-visible,
-.form-textarea:focus-visible{
+
+form>p>input:focus-visible,
+.form-textarea:focus-visible {
     border: 0px solid rgb(0, 0, 0);
     outline-width: 1px;
     outline-style: solid;
@@ -58,74 +60,106 @@ form > p > input:focus-visible,
 }
 
 
-form > button,
-.button{
+form>button,
+.button {
     padding: 4px 10px;
     border-radius: 15px;
     color: var(--colColor);
     height: 30px;
-    margin-left: 40px;
+    margin-left: 10px;
     transition: transform 0.3s;
     border: 0px solid var(--colColor);
-        background-color: var(--pageBG);
+    background-color: var(--pageBG);
 }
 
-form > button:active,
-.button:active{
+form>button:active,
+.button:active {
     background-color: rgb(158, 158, 158);
 }
 
-form > button:hover,
-.button:hover{
+form>button:hover,
+.button:hover {
     transform: scale(110%);
 }
 
-.button{
+.button {
     display: inline-block;
     margin: 10px 10px;
-    text-decoration:none;
+    text-decoration: none;
     line-height: 30px;
 }
 
-.red-button{
+.red-button {
     color: #ff6060;
 }
 
-.small-button{
+.small-button {
     margin: 5px 5px;
     line-height: normal;
     height: auto;
 }
 
-.form-textarea{
-    
+.form-textarea {
+
     height: 100px;
+
+}
+
+.form-textarea::-webkit-scrollbar {
+    width: 1em;
+}
+
+.form-textarea::-webkit-scrollbar-track {
     
 }
 
-.form-checkbox{
+.form-textarea::-webkit-scrollbar-thumb {
+
+    background-color: var(--navbarLink);
+
+    border-radius: 10px;
+}
+
+.form-textarea::-webkit-resizer {
+    background-color: var(--pageBG);
+    border-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-image: url("/static/noteapp/images/resizer.png");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+
+.form-checkbox {
     width: max-content;
 }
 
 
 @media (prefers-color-scheme: dark) {
-    form > p > input , .form-textarea{
+
+    form>p>input,
+    .form-textarea {
         color-scheme: dark;
+        
     }
-    form > button,
-    .button{
+
+    form>button,
+    .button {
         background-color: var(--navbarLinkHover);
         border: 0px solid white;
         color: var(--colColor);
     }
-    
-    .red-button{
+
+    .red-button {
         color: #ff6060;
     }
 
-    form > button:active
-    .button:active{
+    form>button:active .button:active {
         background-color: var(--navbarLinkActive);
     }
-}
 
+    .form-textarea::-webkit-scrollbar-thumb {
+
+        background-color: var(--navbarLinkHover);
+    
+    }
+}
